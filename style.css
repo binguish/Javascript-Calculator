@@ -10,7 +10,7 @@
     gap: .4rem
 }
 
-span[data-previousOperand] {
+#op-display {
     position: relative;
     display: flex;
     width: 14rem;
@@ -45,4 +45,7 @@ span[data-previousOperand] {
 #equals-button {
     grid-column: 4;
     grid-row: 5/7;
+}
+.space {
+    padding: 3px;
 }

@@ -1,6 +1,6 @@
 let currentOperand = document.querySelector("[data-display]");
 let previousOperand = document.querySelector("[data-previousOperand]");
-let operator = document.querySelector("[data-currentOperator]");
+let operator = document.querySelector("[data-operatorDisplay]");
 const numeralButton = document.querySelectorAll("[data-numeral]");
 const operatorButton = document.querySelectorAll("[data-operator]");
 const clearButton = document.querySelector("[data-clear]");
@@ -29,52 +29,93 @@ const append = (current, numToAppend) => {
 
 const add = (current, previous) => {
     let sum = parseFloat(current) + parseFloat(previous);
-    //console.log(current, previous, sum);
     return `${sum}`;
 };
 
 const subtract = (current, previous) => {
-    return current - previous;
+    let difference = parseFloat(previous) - parseFloat(current);
+    return difference.toString();
 };
 
 const multiply = (current, previous) => {
-    return current * previous;
+    let product = parseFloat(current) * parseFloat(previous);
+    return product.toString();
 };
 
 const divide = (current, previous) => {
-    return current / previous;
+    let quotient = parseFloat(previous) / parseFloat(current);
+    return quotient.toString();
 };
 
 
 
 // Events
 
+let clicked = false;
+
 numeralButton.forEach(button => {
     button.addEventListener("click", () => {
-        currentOperand.innerText = append(currentOperand.innerText, button.innerText);
-    
+            if (clicked) {
+                currentOperand.innerText = button.innerText;
+                clicked = false;
+            } else {
+                console.log(clicked)
+                currentOperand.innerText = append(currentOperand.innerText, button.innerText);
+            }
+            
     })
 });
 
 operatorButton.forEach(button => {
     button.addEventListener("click", () => {
-        previousOperand.innerText = currentOperand.innerText;
-        currentOperand.innerText = '';
-
         operator.innerText = button.innerText;
+        
+        if (previousOperand.innerText) {
+            previousOperand.innerText = currentOperand.innerText
+            switch (operator.innerText) {
+                case '+':
+                    currentOperand.innerText = add(currentOperand.innerText, previousOperand.innerText);
+                    clicked = true;
+                    break;
+                case '-':
+                    currentOperand.innerText = subtract(currentOperand.innerText, previousOperand.innerText);
+                    break;
+                case '*':
+                    currentOperand.innerText = multiply(currentOperand.innerText, previousOperand.innerText);
+                    break;
+                case '/':
+                    currentOperand.innerText = divide(currentOperand.innerText, previousOperand.innerText);
+                    break;
+                
+            }
+        } else {
+
+            previousOperand.innerText = currentOperand.innerText;
+        }
+
     })
 });
 
 equalsButton.addEventListener("click", () => {
     switch (operator.innerText) {
         case '+':
-            
             currentOperand.innerText = add(currentOperand.innerText, previousOperand.innerText);
             break;
+        case '-':
+            currentOperand.innerText = subtract(currentOperand.innerText, previousOperand.innerText);
+            break;
+        case '*':
+            currentOperand.innerText = multiply(currentOperand.innerText, previousOperand.innerText);
+            break;
+        case '/':
+            currentOperand.innerText = divide(currentOperand.innerText, previousOperand.innerText);
+            break;
+        
     }
 })
 
 clearButton.addEventListener("click", () => {
     currentOperand.innerText = '';
     previousOperand.innerText = '';
+    operator.innerText = '';
 });

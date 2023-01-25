@@ -10,10 +10,14 @@
 </head>
 <body>
     <div class="calculator">
-        <span data-previousOperand>0</span>
-        <span data-operatorDisplay></span>
+        <div id="op-display">
+            <span data-previousOperand></span>
+            <span class="space"></span>
+            <span data-operatorDisplay></span>
+        </div>
+        
         <div class="calc-body">
-            <span data-display id="display">0</span>
+            <span data-display id="display"></span>
             <button data-clear id="clear">C</button>
             <button data-operator id="divide-button">/</button>
             <button data-operator id="multiply-button">*</button>
