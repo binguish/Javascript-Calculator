@@ -51,7 +51,7 @@ const divide = (current, previous) => {
 
 // Events
 
-let clicked = false;
+let clicked;
 
 numeralButton.forEach(button => {
     button.addEventListener("click", () => {
@@ -69,13 +69,13 @@ numeralButton.forEach(button => {
 operatorButton.forEach(button => {
     button.addEventListener("click", () => {
         operator.innerText = button.innerText;
-        
+        clicked = true;
         if (previousOperand.innerText) {
             previousOperand.innerText = currentOperand.innerText
             switch (operator.innerText) {
                 case '+':
                     currentOperand.innerText = add(currentOperand.innerText, previousOperand.innerText);
-                    clicked = true;
+                    
                     break;
                 case '-':
                     currentOperand.innerText = subtract(currentOperand.innerText, previousOperand.innerText);
