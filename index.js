@@ -1,6 +1,7 @@
 let currentOperand = document.querySelector("[data-display]");
 let previousOperand = document.querySelector("[data-previousOperand]");
 let operator = document.querySelector("[data-operatorDisplay]");
+let runningTotal = 0;
 const numeralButton = document.querySelectorAll("[data-numeral]");
 const operatorButton = document.querySelectorAll("[data-operator]");
 const clearButton = document.querySelector("[data-clear]");
@@ -50,7 +51,6 @@ const divide = (current, previous) => {
 
 
 // Events
-
 let clicked;
 
 numeralButton.forEach(button => {
@@ -59,7 +59,6 @@ numeralButton.forEach(button => {
                 currentOperand.innerText = button.innerText;
                 clicked = false;
             } else {
-                console.log(clicked)
                 currentOperand.innerText = append(currentOperand.innerText, button.innerText);
             }
             
@@ -71,20 +70,26 @@ operatorButton.forEach(button => {
         operator.innerText = button.innerText;
         clicked = true;
         if (previousOperand.innerText) {
-            previousOperand.innerText = currentOperand.innerText
             switch (operator.innerText) {
                 case '+':
-                    currentOperand.innerText = add(currentOperand.innerText, previousOperand.innerText);
-                    
+                    runningTotal = add(currentOperand.innerText, previousOperand.innerText);
+                    previousOperand.innerText = runningTotal;
+                    currentOperand.innerText = runningTotal;
                     break;
                 case '-':
-                    currentOperand.innerText = subtract(currentOperand.innerText, previousOperand.innerText);
+                    runningTotal = subtract(currentOperand.innerText, previousOperand.innerText);
+                    previousOperand.innerText = runningTotal;
+                    currentOperand.innerText = runningTotal;
                     break;
                 case '*':
-                    currentOperand.innerText = multiply(currentOperand.innerText, previousOperand.innerText);
+                    runningTotal = multiply(currentOperand.innerText, previousOperand.innerText);
+                    previousOperand.innerText = runningTotal;
+                    currentOperand.innerText = runningTotal;
                     break;
                 case '/':
-                    currentOperand.innerText = divide(currentOperand.innerText, previousOperand.innerText);
+                    runningTotal = divide(currentOperand.innerText, previousOperand.innerText);
+                    previousOperand.innerText = runningTotal;
+                    currentOperand.innerText = runningTotal;
                     break;
                 
             }
@@ -96,19 +101,29 @@ operatorButton.forEach(button => {
     })
 });
 
+const clearOnEquals = () => {
+    previousOperand.innerText = "";
+    operator.innerText = "";
+    runningTotal = 0;
+}
+
 equalsButton.addEventListener("click", () => {
     switch (operator.innerText) {
         case '+':
             currentOperand.innerText = add(currentOperand.innerText, previousOperand.innerText);
+            clearOnEquals();
             break;
         case '-':
             currentOperand.innerText = subtract(currentOperand.innerText, previousOperand.innerText);
+            clearOnEquals();
             break;
         case '*':
             currentOperand.innerText = multiply(currentOperand.innerText, previousOperand.innerText);
+            clearOnEquals();
             break;
         case '/':
             currentOperand.innerText = divide(currentOperand.innerText, previousOperand.innerText);
+            clearOnEquals();
             break;
         
     }
@@ -118,4 +133,5 @@ clearButton.addEventListener("click", () => {
     currentOperand.innerText = '';
     previousOperand.innerText = '';
     operator.innerText = '';
+    runningTotal = 0;
 });
