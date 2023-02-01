@@ -73,26 +73,19 @@ operatorButton.forEach(button => {
             switch (operator.innerText) {
                 case '+':
                     runningTotal = add(currentOperand.innerText, previousOperand.innerText);
-                    previousOperand.innerText = runningTotal;
-                    currentOperand.innerText = runningTotal;
                     break;
                 case '-':
                     runningTotal = subtract(currentOperand.innerText, previousOperand.innerText);
-                    previousOperand.innerText = runningTotal;
-                    currentOperand.innerText = runningTotal;
                     break;
                 case '*':
                     runningTotal = multiply(currentOperand.innerText, previousOperand.innerText);
-                    previousOperand.innerText = runningTotal;
-                    currentOperand.innerText = runningTotal;
                     break;
                 case '/':
                     runningTotal = divide(currentOperand.innerText, previousOperand.innerText);
-                    previousOperand.innerText = runningTotal;
-                    currentOperand.innerText = runningTotal;
                     break;
-                
-            }
+                }
+            previousOperand.innerText = runningTotal;
+            currentOperand.innerText = runningTotal;
         } else {
 
             previousOperand.innerText = currentOperand.innerText;
