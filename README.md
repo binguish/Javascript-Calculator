@@ -1,4 +1,4 @@
-# Javascript-Calculator
+# Javascript Calculator
 
 This JavaScript code creates a basic calculator. 
 
